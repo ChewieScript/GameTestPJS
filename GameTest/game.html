@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TestGame</title>
+</head>
+<body>
+    
+    <script src="pointjs_0.2.0.9.js"></script>
+    <script>
+        let pjs = new PointJS(500,500,{background:"blue"}); //Платформа
+        let gm = pjs.game;
+        let key = pjs.keyControl
+        key.initControl();
+        let p = pjs.vector.point
+
+        let cub = gm.newRoundRectObject({ //объект
+            x : 50, 
+            y : 100, 
+            w : 50, 
+            h : 50,
+            fillColor : "#Fa12fa",
+            strokeColor : 'red',
+            strokeWidth: 2
+        });
+
+        gm.newLoop('Game',function(){
+            if (key.isDown('RIGHT') || key.isDown('D') ){
+                cub.move(p(1,0))
+            } else if (key.isDown('LEFT') || key.isDown('A') ){
+                cub.move(p(-1,0))
+            }
+            if (key.isDown('DOWN') || key.isDown('S') ){
+                cub.move(p(0,1))
+            }
+            if (key.isDown('UP') || key.isDown('W') ){
+                cub.move(p(0,-1))
+            }
+
+            cub.turn(-1);
+            cub.draw();//Отрисовка объекта
+        })
+        gm.setLoop('Game');
+        gm.start();
+
+
+    </script>
+</body>
+</html>
